@@ -1,0 +1,19 @@
+{
+  "name": "e2e_page_accesser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^24.7.1",
+    "jest-image-snapshot": "^2.8.1",
+    "jest-puppeteer": "^4.1.1",
+    "puppeteer": "^1.14.0"
+  }
+}
