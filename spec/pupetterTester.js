@@ -1,8 +1,11 @@
 class AccessTester {
   static async access(testTarget) {
-    const puppeteer = require("puppeteer")
+    const puppeteer = require('puppeteer');
 
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'], timeout: 30000 });
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox'],
+      timeout: 30000
+    });
     const page = await browser.newPage();
     await page.setCookie({
       domain: 'smocca.jp',
@@ -11,9 +14,11 @@ class AccessTester {
     });
 
     await page.goto(testTarget.url);
-    await page.screenshot({ "path": "./screenshot/" + testTarget.title + ".jpg" });
+    await page.screenshot({
+      path: './screenshot/' + testTarget.title + '.jpg'
+    });
     await browser.close();
   }
 }
 
-module.exports = AccessTester
+module.exports = AccessTester;

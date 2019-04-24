@@ -6,19 +6,19 @@ class Converter {
    */
   static convertToJson(csvText) {
     // データの変換
-    let jsObject = csvText.split('\n').map((row) => {
+    let jsObject = csvText.split('\n').map(row => {
       row = row.split(',');
       let tmpObj = {};
       tmpObj['url'] = row[0];
       tmpObj['title'] = row[1];
 
-      return tmpObj
+      return tmpObj;
     });
 
-    jsObject.shift()
+    jsObject.shift();
 
     // 変換後データの返却
-    return jsObject
+    return jsObject;
   }
 }
 
