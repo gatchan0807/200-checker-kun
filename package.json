@@ -5,9 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run test:e2e",
-    "test:e2e": "node index.js",
-    "test:image": "node index.js --withImage",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:e2e:all": "npm run test:e2e && npm run test:e2e:android && npm run test:e2e:iphone:se && npm run test:e2e:pc",
+    "test:e2e": "node index.js -e SP",
+    "test:e2e:android": "node index.js -e SP-Android",
+    "test:e2e:iphone:se": "node index.js --withImage -e SP-iPhone-SE",
+    "test:e2e:pc": "node index.js",
+    "test:image:all": "npm run test:image && npm run test:image:android && npm run test:image:iphone:se && npm run test:image:pc",
+    "test:image": "node index.js --withImage -e SP",
+    "test:image:android": "node index.js --withImage -e SP-Android",
+    "test:image:iphone:se": "node index.js --withImage -e SP-iPhone-SE",
+    "test:image:pc": "node index.js --withImage"
   },
   "keywords": [],
   "author": "",
