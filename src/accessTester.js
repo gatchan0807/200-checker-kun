@@ -18,7 +18,7 @@ class AccessTester {
     // アクセス
     console.log(`Access to: ${testTarget.url}`);
     let response = await page.goto(testTarget.url, {
-      waitUntil: 'networkidle2'
+      waitUntil: 'networkidle0'
     });
 
     // スクリーンショット取得

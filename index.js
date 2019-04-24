@@ -11,9 +11,9 @@ const devices = require('puppeteer/DeviceDescriptors');
 
 const CSV_FILE_TITLES = 'ページ名,HTTPレスポンスコード,URL\n';
 
-GLOBAL_FILE_SUFFIX = moment().format('YYYYMMDDhhmm');
+GLOBAL_FILE_SUFFIX = moment().format('YYYYMMDDHHmm');
 
-fs.readFile('./master/urlLinks.csv', 'utf8', async function(_, text) {
+fs.readFile('./master/links.csv', 'utf8', async function(_, text) {
   let accessTestList = Converter.convertToJson(text);
 
   let opt = {};
@@ -61,9 +61,7 @@ async function asyncAccess(browser, targetData, opt) {
   let result = await AccessTester.access(browser, targetData, opt);
 
   // レポート作成
-  let convertedResult = `${result.title},${result.responseCode},${
-    result.url
-  }\n`;
+  let convertedResult = `${result.title},${result.responseCode},${result.url}\n`;
 
   fs.appendFileSync(
     `./result/result-${GLOBAL_FILE_SUFFIX}.csv`,
