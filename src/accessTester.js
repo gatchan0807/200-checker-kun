@@ -1,17 +1,8 @@
-const puppeteer = require('puppeteer');
 const moment = require('moment');
 
 class AccessTester {
-  static async access(testTarget, opt) {
-    // ブラウザの初期設定
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox'],
-      timeout: 3000,
-      defaultViewport: {
-        width: 1440,
-        height: 990
-      }
-    });
+  static async access(browser, testTarget, opt) {
+    // ブラウザ（タブ）の初期設定
     const page = await browser.newPage();
     await page.setCookie({
       domain: 'smocca.jp',
@@ -20,12 +11,15 @@ class AccessTester {
     });
 
     // アクセス
+    console.log(`Access to: ${testTarget.url}`)
     const response = await page.goto(testTarget.url);
 
     // スクリーンショット取得
     if (opt.hasOwnProperty('withImage') && opt.withImage) {
       await page.screenshot({
-        path: `./screenshot/${testTarget.title}-${moment().format('YYYYMMDDhhmm')}.jpg`
+        path: `./screenshot/${testTarget.title}-${moment().format(
+          'YYYYMMDDhhmm'
+        )}.jpg`
       });
     }
 
@@ -36,7 +30,7 @@ class AccessTester {
     };
 
     // 後処理
-    await browser.close();
+    await page.close();
 
     return result;
   }
