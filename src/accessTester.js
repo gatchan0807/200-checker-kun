@@ -7,6 +7,10 @@ class AccessTester {
     const browser = await puppeteer.launch({
       args: ['--no-sandbox'],
       timeout: 3000,
+      defaultViewport: {
+        width: 1440,
+        height: 990
+      }
     });
     const page = await browser.newPage();
     await page.setCookie({
