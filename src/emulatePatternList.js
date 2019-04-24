@@ -17,7 +17,7 @@ const EmulatePatternData = [
   },
   {
     id: 'SP-Android',
-    name: 'Nexus 7'
+    name: 'Nexus 6'
   }
 ];
 
