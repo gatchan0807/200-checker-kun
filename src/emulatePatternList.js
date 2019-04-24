@@ -23,9 +23,9 @@ const EmulatePatternData = [
 
 class EmulatePatternList {
   /**
-   * @method findEmulatePattern
-   * @param {String}
-   * @return {String}
+   * @method findEmulatePattern Argをもとに選択しているデバイスの設定名を取得
+   * @param {String} Arg（コマンドライン引数で設定した文字列） 
+   * @return {String} デバイスの設定名
    */
   static findEmulatePattern(argPattern) {
     let emulateName = EmulatePatternData.find(emulatePattern => {

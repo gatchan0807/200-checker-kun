@@ -1,16 +1,15 @@
 const fs = require('fs');
 const moment = require('moment');
 const puppeteer = require('puppeteer');
+const devices = require('puppeteer/DeviceDescriptors');
 
 const Converter = require('./src/converter');
 const AccessTester = require('./src/accessTester');
 const ArgChecker = require('./src/argChecker.js');
 
 const EmulatePatternList = require('./src/emulatePatternList.js');
-const devices = require('puppeteer/DeviceDescriptors');
 
 const CSV_FILE_TITLES = 'ページ名,HTTPレスポンスコード,URL\n';
-
 GLOBAL_FILE_SUFFIX = moment().format('YYYYMMDDHHmm');
 
 fs.readFile('./master/links.csv', 'utf8', async function(_, text) {
