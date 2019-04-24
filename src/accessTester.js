@@ -28,6 +28,7 @@ class AccessTester {
           testTarget.title
         }-${GLOBAL_FILE_SUFFIX}-${emulateUserAgent}.jpg`
       });
+      console.log(`Took a Screenshot of: ${testTarget.url}`);
     }
 
     let result = {};
