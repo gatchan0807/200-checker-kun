@@ -1,28 +1,24 @@
 class AccessTester {
-  static test(testTarget) {
-    const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
-    const toMatchImageSnapshot = configureToMatchImageSnapshot({
-      failureThreshold: '0.05',
-      failureThresholdType: 'percent'
-    });
-    expect.extend({ toMatchImageSnapshot });
+  static async access(testTarget) {
+    const puppeteer = require('puppeteer');
 
-    describe(testTarget.title, () => {
-      beforeEach(async () => {
-        // 初回アクセス時のポップアップを非表示化
-        await page.setCookie({
-          domain: 'smocca.jp',
-          name: 'popup_visited',
-          value: 'true'
-        });
-        await page.goto(testTarget.url);
-      });
-    
-      it('初期表示', async () => {
-        expect(await page.screenshot()).toMatchImageSnapshot();
-      });
-    })
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox'],
+      timeout: 30000
+    });
+    const page = await browser.newPage();
+    await page.setCookie({
+      domain: 'smocca.jp',
+      name: 'popup_visited',
+      value: 'true'
+    });
+
+    await page.goto(testTarget.url);
+    await page.screenshot({
+      path: './screenshot/' + testTarget.title + '.jpg'
+    });
+    await browser.close();
   }
 }
 
-module.exports = AccessTester
+module.exports = AccessTester;
