@@ -6,6 +6,9 @@ const Converter = require('./src/converter');
 const AccessTester = require('./src/accessTester');
 const ArgChecker = require('./src/argChecker.js');
 
+const EmulatePatternList = require('./src/emulatePatternList.js');
+const devices = require('puppeteer/DeviceDescriptors');
+
 const CSV_FILE_TITLES = 'ページ名,HTTPレスポンスコード,URL\n';
 
 GLOBAL_FILE_SUFFIX = moment().format('YYYYMMDDhhmm');
@@ -18,20 +21,30 @@ fs.readFile('./master/urlLinks.csv', 'utf8', async function(_, text) {
     opt.withImage = true;
   }
 
-  // ファイル初期化
-  fs.appendFileSync(
-    `./result/result-${GLOBAL_FILE_SUFFIX}.csv`,
-    CSV_FILE_TITLES
-  );
-
-  let browser = await puppeteer.launch({
+  let puppeteerOption = {
     args: ['--no-sandbox'],
     timeout: 3000,
     defaultViewport: {
       width: 1440,
       height: 990
     }
-  });
+  };
+
+  if (ArgChecker.hasEmulateOpt(process.argv)) {
+    const emluatePatternArg = ArgChecker.getEmulateArg(process.argv);
+    if (emluatePatternArg !== null) {
+      let deviceName = EmulatePatternList.findEmulatePattern(emluatePatternArg);
+      opt.emulatePattern = devices[deviceName];
+    }
+  }
+
+  // ファイル初期化
+  fs.appendFileSync(
+    `./result/result-${GLOBAL_FILE_SUFFIX}.csv`,
+    CSV_FILE_TITLES
+  );
+
+  let browser = await puppeteer.launch(puppeteerOption);
 
   let asyncAccessList = [];
   accessTestList.map(targetData => {

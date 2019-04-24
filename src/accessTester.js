@@ -1,9 +1,12 @@
-const moment = require('moment');
-
 class AccessTester {
   static async access(browser, testTarget, opt) {
     // ブラウザ（タブ）の初期設定
     const page = await browser.newPage();
+    // エミュレーション情報の追加
+    if (opt.hasOwnProperty('emulatePattern') && opt.emulatePattern) {
+      page.emulate(opt.emulatePattern);
+    }
+
     await page.setCookie({
       domain: 'smocca.jp',
       name: 'popup_visited',
@@ -12,7 +15,9 @@ class AccessTester {
 
     // アクセス
     console.log(`Access to: ${testTarget.url}`);
-    const response = await page.goto(testTarget.url);
+    let response = await page.goto(testTarget.url, {
+      waitUntil: 'networkidle2'
+    });
 
     // スクリーンショット取得
     if (opt.hasOwnProperty('withImage') && opt.withImage) {
@@ -21,12 +26,25 @@ class AccessTester {
       });
     }
 
-    let result = {
-      title: testTarget.title,
-      responseCode: response.headers().status,
-      url: testTarget.url
-    };
+    let result = {};
+    try {
+      result = {
+        title: testTarget.title,
+        responseCode: response.headers().status,
+        url: testTarget.url
+      };
+    } catch (e) {
+      // FIXME: `await page.goto` しているが、エミュレートの場合謎にデータが取得できずにerrorを吐くことが有るので、エラーを吐いた場合データだけ再アクセスしている
+      response = await page.goto(testTarget.url, {
+        waitUntil: 'networkidle2'
+      });
 
+      result = {
+        title: testTarget.title,
+        responseCode: response.headers().status,
+        url: testTarget.url
+      };
+    }
     // 後処理
     await page.close();
 
