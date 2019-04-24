@@ -3,7 +3,9 @@ class AccessTester {
     // ブラウザ（タブ）の初期設定
     const page = await browser.newPage();
     // エミュレーション情報の追加
+    let emulateUserAgent = '';
     if (opt.hasOwnProperty('emulatePattern') && opt.emulatePattern) {
+      emulateUserAgent = opt.emulatePattern.name;
       page.emulate(opt.emulatePattern);
     }
 
@@ -22,7 +24,9 @@ class AccessTester {
     // スクリーンショット取得
     if (opt.hasOwnProperty('withImage') && opt.withImage) {
       await page.screenshot({
-        path: `./screenshot/${testTarget.title}-${GLOBAL_FILE_SUFFIX}.jpg`
+        path: `./screenshot/${
+          testTarget.title
+        }-${GLOBAL_FILE_SUFFIX}-${emulateUserAgent}.jpg`
       });
     }
 
