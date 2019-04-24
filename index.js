@@ -8,9 +8,11 @@ const ArgChecker = require('./src/argChecker.js');
 
 const CSV_FILE_TITLES = 'ページ名,HTTPレスポンスコード,URL\n';
 
+GLOBAL_FILE_SUFFIX = moment().format('YYYYMMDDhhmm');
+
 fs.readFile('./master/urlLinks.csv', 'utf8', async function(_, text) {
   let accessTestList = Converter.convertToJson(text);
-  
+
   let opt = {};
   if (ArgChecker.hasImageOpt(process.argv)) {
     opt.withImage = true;
@@ -18,7 +20,7 @@ fs.readFile('./master/urlLinks.csv', 'utf8', async function(_, text) {
 
   // ファイル初期化
   fs.appendFileSync(
-    `./result/result-${moment().format('YYYYMMDDhhmm')}.csv`,
+    `./result/result-${GLOBAL_FILE_SUFFIX}.csv`,
     CSV_FILE_TITLES
   );
 
@@ -51,7 +53,7 @@ async function asyncAccess(browser, targetData, opt) {
   }\n`;
 
   fs.appendFileSync(
-    `./result/result-${moment().format('YYYYMMDDhhmm')}.csv`,
+    `./result/result-${GLOBAL_FILE_SUFFIX}.csv`,
     convertedResult
   );
 }

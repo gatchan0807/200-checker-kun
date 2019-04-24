@@ -11,15 +11,13 @@ class AccessTester {
     });
 
     // アクセス
-    console.log(`Access to: ${testTarget.url}`)
+    console.log(`Access to: ${testTarget.url}`);
     const response = await page.goto(testTarget.url);
 
     // スクリーンショット取得
     if (opt.hasOwnProperty('withImage') && opt.withImage) {
       await page.screenshot({
-        path: `./screenshot/${testTarget.title}-${moment().format(
-          'YYYYMMDDhhmm'
-        )}.jpg`
+        path: `./screenshot/${testTarget.title}-${GLOBAL_FILE_SUFFIX}.jpg`
       });
     }
 
