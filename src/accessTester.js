@@ -1,10 +1,12 @@
-class AccessTester {
-  static async access(testTarget) {
-    const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');
+const moment = require('moment');
 
+class AccessTester {
+  static async access(testTarget, opt) {
+    // ブラウザの初期設定
     const browser = await puppeteer.launch({
       args: ['--no-sandbox'],
-      timeout: 30000
+      timeout: 3000,
     });
     const page = await browser.newPage();
     await page.setCookie({
@@ -13,11 +15,26 @@ class AccessTester {
       value: 'true'
     });
 
-    await page.goto(testTarget.url);
-    await page.screenshot({
-      path: './screenshot/' + testTarget.title + '.jpg'
-    });
+    // アクセス
+    const response = await page.goto(testTarget.url);
+
+    // スクリーンショット取得
+    if (opt.hasOwnProperty('withImage') && opt.withImage) {
+      await page.screenshot({
+        path: `./screenshot/${testTarget.title}-${moment().format('YYYYMMDDhhmm')}.jpg`
+      });
+    }
+
+    let result = {
+      title: testTarget.title,
+      responseCode: response.headers().status,
+      url: testTarget.url
+    };
+
+    // 後処理
     await browser.close();
+
+    return result;
   }
 }
 

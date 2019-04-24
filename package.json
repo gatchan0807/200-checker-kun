@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npm run test:e2e",
+    "test:e2e": "node index.js",
+    "test:image": "node index.js --withImage",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +16,7 @@
     "jest": "^24.7.1",
     "jest-image-snapshot": "^2.8.1",
     "jest-puppeteer": "^4.1.1",
+    "moment": "^2.24.0",
     "puppeteer": "^1.14.0"
   }
 }
