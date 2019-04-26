@@ -16,13 +16,14 @@
     "test:image:iphone:se": "node index.js --withImage -e SP-iPhone-SE",
     "test:image:pc": "node index.js --withImage"
   },
-  "keywords": ["puppeteer", "test", "auto-testing"],
+  "keywords": [
+    "puppeteer",
+    "test",
+    "auto-testing"
+  ],
   "author": "gatchan0807<yuki.dolphin.koga@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "jest": "^24.7.1",
-    "jest-image-snapshot": "^2.8.1",
-    "jest-puppeteer": "^4.1.1",
     "moment": "^2.24.0",
     "puppeteer": "^1.14.0"
   }
