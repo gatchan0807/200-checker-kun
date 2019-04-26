@@ -1,5 +1,5 @@
 node_modules/
-result/
-screenshot/
+result/*.csv
+screenshot/*.jpg
 .DS_Store
 ._.DS_Store
