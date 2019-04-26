@@ -2,6 +2,7 @@ class AccessTester {
   static async access(browser, testTarget, opt) {
     // ブラウザ（タブ）の初期設定
     const page = await browser.newPage();
+
     // エミュレーション情報の追加
     let emulateUserAgent = '';
     if (opt.hasOwnProperty('emulatePattern') && opt.emulatePattern) {
@@ -9,13 +10,7 @@ class AccessTester {
       page.emulate(opt.emulatePattern);
     }
 
-    await page.setCookie({
-      domain: 'smocca.jp',
-      name: 'popup_visited',
-      value: 'true'
-    });
-
-    // アクセス
+    // アクセス実行
     console.log(`Access to: ${testTarget.url}`);
     let response = await page.goto(testTarget.url, {
       waitUntil: 'networkidle0'

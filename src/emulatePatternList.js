@@ -1,3 +1,4 @@
+// コマンドライン引数の値とエミュレーター設定用データ名のマッピング
 const EmulatePatternData = [
   {
     id: 'SP',
