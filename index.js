@@ -59,6 +59,7 @@ fs.readFile('./master/links.csv', 'utf8', async function(_, text) {
   });
 });
 
+// アクセス並列実行化のためのラッパー関数
 async function asyncAccess(browser, targetData, opt) {
   // アクセス実行
   let result = await AccessTester.access(browser, targetData, opt);
