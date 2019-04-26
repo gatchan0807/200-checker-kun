@@ -1,7 +1,7 @@
 {
-  "name": "e2e_page_accesser",
+  "name": "200-checker-kun",
   "version": "1.0.0",
-  "description": "",
+  "description": "『200チェッカーくん』: CSVでリストアップされたURLが200をきちんと返すかを自動アクセスしてチェックする子。",
   "main": "index.js",
   "scripts": {
     "start": "npm run test:e2e",
@@ -16,8 +16,8 @@
     "test:image:iphone:se": "node index.js --withImage -e SP-iPhone-SE",
     "test:image:pc": "node index.js --withImage"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["puppeteer", "test", "auto-testing"],
+  "author": "gatchan0807<yuki.dolphin.koga@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "jest": "^24.7.1",
