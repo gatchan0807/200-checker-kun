@@ -13,7 +13,8 @@ class AccessTester {
     // アクセス実行
     console.log(`Access to: ${testTarget.url}`);
     let response = await page.goto(testTarget.url, {
-      waitUntil: 'networkidle0'
+      waitUntil: 'networkidle0',
+      timeout: 0
     });
 
     // スクリーンショット取得
@@ -30,13 +31,14 @@ class AccessTester {
     try {
       result = {
         title: testTarget.title,
-        responseCode: response.headers().status,
+        responseCode: response.status(),
         url: testTarget.url
       };
     } catch (e) {
       // FIXME: `await page.goto` しているが、エミュレートの場合謎にデータが取得できずにerrorを吐くことが有るので、エラーを吐いた場合データだけ再アクセスしている
       response = await page.goto(testTarget.url, {
-        waitUntil: 'networkidle2'
+        waitUntil: 'networkidle2',
+        timeout: 0
       });
 
       result = {
