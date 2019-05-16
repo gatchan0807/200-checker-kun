@@ -43,7 +43,7 @@ class AccessTester {
 
       result = {
         title: testTarget.title,
-        responseCode: response.headers().status,
+        responseCode: response.status(),
         url: testTarget.url
       };
     }
