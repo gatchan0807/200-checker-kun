@@ -9,8 +9,8 @@ class Converter {
     let jsObject = csvText.split('\n').map(row => {
       row = row.split(',');
       let tmpObj = {};
-      tmpObj['url'] = row[0];
-      tmpObj['title'] = row[1];
+      tmpObj['title'] = row[0];
+      tmpObj['url'] = row[1];
 
       return tmpObj;
     });
