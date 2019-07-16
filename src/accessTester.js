@@ -20,9 +20,9 @@ class AccessTester {
     // スクリーンショット取得
     if (opt.hasOwnProperty('withImage') && opt.withImage) {
       await page.screenshot({
-        path: `./screenshot/${
+        path: `./screenshot/${GLOBAL_FILE_SUFFIX}-${
           testTarget.title
-        }-${GLOBAL_FILE_SUFFIX}-${emulateUserAgent}.jpg`
+        }-${emulateUserAgent}.jpg`
       });
       console.log(`Took a Screenshot of: ${testTarget.url}`);
     }
